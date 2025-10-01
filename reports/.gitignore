@@ -1,0 +1,61 @@
+# Ignore all TeX source files
+*.tex
+
+# LaTeX intermediate and auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.lol
+*.thm
+*.dvi
+*.upa
+*.upb
+
+*.latexmk
+
+images/
+hidden/
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries
+*.test
+
+# Output of `go build` and `go install`
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Dependency directories (when using vendoring)
+vendor/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
