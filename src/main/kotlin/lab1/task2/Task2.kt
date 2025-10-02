@@ -48,7 +48,7 @@ fun main() {
             "Message should only contain English letters & spaces"
         )
 
-        println("Decrypted message ${encryptedMessage.encryptCaesarPermutation(key, key2)}")
+        println("Decrypted message ${encryptedMessage.decryptCaesarPermutation(key, key2)}")
 
     }
 }
