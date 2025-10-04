@@ -21,7 +21,7 @@ fun <T> readUntilConditionSatisfy(
         if (parsed != null && condition(parsed)) {
             return parsed
         } else {
-            println(conditionString)
+            println(conditionString.red())
         }
     }
 }
