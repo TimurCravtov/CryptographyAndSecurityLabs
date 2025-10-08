@@ -9,11 +9,7 @@ fun String.normalizeForEncryption(): String {
     return this.replace(" ", "").uppercase()
 }
 
-val alphabet = buildString {
-    for (c in 'A'..'Z') {
-        append(c)
-    }
-}
+const val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 fun alphabetWithKeyInserted(key: String): String {
 
