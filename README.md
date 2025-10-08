@@ -7,4 +7,4 @@
 
 ### Laboratory 2: Frequency analysis
 
-- Report: [reports/lab2/FAF-231_CS_LAB1_Timur-Cravtov.pdf](reports/lab2/FAF-231_CS_LAB1_Timur-Cravtov.pdf)
+- Report: [reports/lab2/FAF-231_CS_LAB2_Timur-Cravtov.pdf](reports/lab2/FAF-231_CS_LAB1_Timur-Cravtov.pdf)
