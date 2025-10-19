@@ -1,15 +1,19 @@
 package lab4.des
 
+import lab4.toBitString
 import lab4.util.hexToBooleanArray
 import lab4.util.toHexString
 import lab4.util.xor
+import util.Logger
+import util.green
+import util.*
 
 /**
  * @receiver - 64 bit array
  * @param key = 64 bits
  * @return Encrypted C
  */
-fun BooleanArray.encryptDesBlock(key: BooleanArray): BooleanArray {
+fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = false): BooleanArray {
 
     val mPermuted = applyPermutation(IP, this) // keeps size, 64 bits
 
@@ -150,8 +154,22 @@ internal fun f(Rn: BooleanArray, Kn_plus_1: BooleanArray): BooleanArray {
     return applyPermutation(P, sBoxOutput)
 }
 
-fun getCfromL16R16(L16: BooleanArray, R16: BooleanArray): BooleanArray {
+fun getCfromL16R16(L16: BooleanArray, R16: BooleanArray, loggerActive: Boolean = true): BooleanArray {
+
+    val log = Logger.instance
+    log!!.seen = loggerActive;
+
+    log.log("Step: From L16 and R16, get C".black().bgWhite())
+    log.log("Got L16 = ${L16.toBitString().yellow()}, R16 = ${R16.toBitString().cyan()}")
+    log.log("R16L16 = ${R16.toBitString().cyan()}${L16.toBitString().yellow()}")
+
     val R16L16 = R16 + L16
+
+    log.log("Permutation table IP^-1 = ".cyan())
+    log.log(IP_1.toList().chunked(8).joinToString("\n") { it.joinToString(" ") }.purple())
+
     val C = applyPermutation(IP_1, R16L16);
+
+    log.log("C = ${C.toBitString().blue()}")
     return C;
 }
