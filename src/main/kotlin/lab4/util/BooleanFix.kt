@@ -36,6 +36,14 @@ fun String.hexToBooleanArray(): BooleanArray {
     return bits
 }
 
+fun String.binaryStringToBooleanArray(): BooleanArray {
+    require(isNotEmpty()) { "String cannot be empty" }
+    require(all { it == '0' || it == '1' }) { "Invalid binary string: $this" }
+
+    return BooleanArray(length) { i -> this[i] == '1' }
+}
+
+
 fun String.plainTextToBooleanArrayAscii(): BooleanArray {
     require(isNotEmpty()) { "String cannot be empty" }
 
@@ -47,4 +55,9 @@ fun String.plainTextToBooleanArrayAscii(): BooleanArray {
         }
     }
     return bits
+}
+
+
+fun BooleanArray.toBitString(): String {
+    return joinToString("") { if (it) "1" else "0" }
 }
