@@ -2,6 +2,8 @@ package lab4.des
 
 import lab4.toBitString
 import lab4.util.hexToBooleanArray
+import lab4.util.plainTextToBooleanArrayAscii
+import lab4.util.toAsciiString
 import lab4.util.toHexString
 import lab4.util.xor
 import util.Logger
@@ -25,9 +27,8 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
     log.log(IP.toList().chunked(8).joinToString("\n") { it.joinToString(" ") }.purple())
 
     val mPermuted = applyPermutation(IP, this) // keeps size, 64 bits
+
     log.log("M permuted: ${mPermuted.toBitString().blue()}")
-
-
     log.log("Step: Get L0, R0".black().bgWhite())
 
     val L0 = mPermuted.sliceArray(0..31) // 32 bits
@@ -46,13 +47,12 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
     for (i in 1..16) {
 
         log.seen = (i == 1 || i == 16) && loggerActive;
-
         log.log("Round $i:".red())
         log.log("Executing R$i = L${i-1} xor f(R${i-1}, K$i)")
+
         val fRezult = f(RCurrent, KList[i-1])
 
         log.log("f  = ${fRezult.toBitString().blue()}")
-
         log.log("L${i-1} = ${LCurrent.toBitString().cyan()}")
         log.log("R$i = L${i-1} xor f rezult")
 
@@ -62,12 +62,9 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
 
         val LNext = RCurrent
 
-
         LCurrent = LNext
         RCurrent = RNext
     }
-
-
 
     val C = getCfromL16R16(LCurrent, RCurrent);
 
@@ -82,8 +79,32 @@ fun String.encryptHexEncodedDesBlock(hexEncodedKey: String): String {
 
     val result = block.encryptDesBlock(key)
     return result.toHexString()
-
 }
+
+inline fun <reified T> String.encryptDesPlaintext(hexEncodedKey: String, outputFormat: OutputFormat): T {
+
+    val booleanKey = hexEncodedKey.hexToBooleanArray()
+    val booleanMessage = this.plainTextToBooleanArrayAscii()
+    val remainder = booleanMessage.size % 64
+    val paddingSize = if (remainder == 0) 0 else 64 - remainder
+    val paddedMessage = BooleanArray(paddingSize) { false } + booleanMessage
+
+    val encryptedBooleanArray = paddedMessage
+        .toList()
+        .chunked(64)
+        .map { it.toBooleanArray().encryptDesBlock(booleanKey) }
+        .flatMap { it.toList() }
+        .toBooleanArray()
+
+    val result: Any = when (outputFormat) {
+        OutputFormat.PLAIN_TEXT_ASCII -> encryptedBooleanArray.toAsciiString()
+        OutputFormat.HEX -> encryptedBooleanArray.toHexString()
+        OutputFormat.BOOLEAN_ARRAY -> encryptedBooleanArray
+    }
+
+    return result as T
+}
+
 
 /**
  * @receiver - 64 bits
@@ -95,7 +116,6 @@ fun BooleanArray.decryptDesBlock(key: BooleanArray): BooleanArray {
 
     val L16 = R16L16.sliceArray(32..63)
     val R16 = R16L16.sliceArray(0..31)
-
 
     val keyList = getKList(key);
 

@@ -57,6 +57,25 @@ fun String.plainTextToBooleanArrayAscii(): BooleanArray {
     return bits
 }
 
+fun BooleanArray.toAsciiString(): String {
+    require(size % 8 == 0) { "BooleanArray size must be divisible by 8 to convert to ASCII" }
+
+    val sb = StringBuilder()
+    for (i in indices step 8) {
+        // Take 8 bits
+        val byteBits = sliceArray(i until i + 8)
+        // Convert to integer
+        var byteValue = 0
+        for (j in byteBits.indices) {
+            if (byteBits[j]) {
+                byteValue = byteValue or (1 shl (7 - j)) // MSB first
+            }
+        }
+        sb.append(byteValue.toChar())
+    }
+    return sb.toString()
+}
+
 
 fun BooleanArray.toBitString(): String {
     return joinToString("") { if (it) "1" else "0" }

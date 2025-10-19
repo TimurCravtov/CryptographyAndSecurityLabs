@@ -7,13 +7,13 @@ import kotlin.random.Random
 
 fun main() {
 
-//    val L16 = randomBooleanArray(32);
-//    val R16 = randomBooleanArray(32);
+    val L16 = randomBooleanArray(32);
+    val R16 = randomBooleanArray(32);
 
-    val L16 = readUntilConditionSatisfy("L16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
-    val R16 = readUntilConditionSatisfy("R16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
+//    val L16 = readUntilConditionSatisfy("L16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
+//    val R16 = readUntilConditionSatisfy("R16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
 
-    getCfromL16R16(L16, R16);
+    getCfromL16R16(L16, R16, true);
 
 }
 
