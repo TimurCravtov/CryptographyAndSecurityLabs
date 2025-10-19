@@ -20,6 +20,7 @@ fun unapplyPermutation(table: IntArray, array: BooleanArray): BooleanArray {
 
 /**
  * @param boxNumber - actual DES box number, 1..8
+ * @return 4 bit array
  */
 fun apply_S_box(block: BooleanArray, boxNumber: Int): BooleanArray {
 
