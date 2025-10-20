@@ -1,4 +1,4 @@
-package lab4.des
+package lab4.des.core
 
 val PC_1 = intArrayOf(
     57, 49, 41, 33, 25, 17, 9,

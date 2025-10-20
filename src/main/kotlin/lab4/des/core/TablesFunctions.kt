@@ -1,6 +1,4 @@
-package lab4.des
-
-import java.util.BitSet
+package lab4.des.core
 
 fun applyPermutation(table: IntArray, array: BooleanArray): BooleanArray {
     val result = BooleanArray(table.size)

@@ -76,6 +76,14 @@ fun BooleanArray.toAsciiString(): String {
     return sb.toString()
 }
 
+fun BooleanArray.rotateLeftCyclic(bits: Int): BooleanArray {
+    val size = size
+    val result = BooleanArray(size)
+    for (i in 0 until size) {
+        result[i] = this[(i + bits) % size]
+    }
+    return result
+}
 
 fun BooleanArray.toBitString(): String {
     return joinToString("") { if (it) "1" else "0" }

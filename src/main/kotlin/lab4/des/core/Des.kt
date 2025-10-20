@@ -1,15 +1,14 @@
-package lab4.des
+package lab4.des.core
 
-import lab4.toBitString
+import lab4.des.OutputFormat
+import lab4.util.*
 import lab4.util.hexToBooleanArray
 import lab4.util.plainTextToBooleanArrayAscii
-import lab4.util.toAsciiString
-import lab4.util.toHexString
+import lab4.util.rotateLeftCyclic
 import lab4.util.xor
 import util.Logger
 import util.green
 import util.*
-import kotlin.math.log
 
 /**
  * @receiver - 64 bit array
@@ -66,43 +65,9 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
         RCurrent = RNext
     }
 
-    val C = getCfromL16R16(LCurrent, RCurrent);
+    val C = getCfromL16R16(LCurrent, RCurrent, loggerActive);
 
     return C
-}
-
-fun String.encryptHexEncodedDesBlock(hexEncodedKey: String): String {
-    val block = this.hexToBooleanArray();
-    val key = this.hexToBooleanArray();
-
-    require(block.size == 64); require(key.size == 64)
-
-    val result = block.encryptDesBlock(key)
-    return result.toHexString()
-}
-
-inline fun <reified T> String.encryptDesPlaintext(hexEncodedKey: String, outputFormat: OutputFormat): T {
-
-    val booleanKey = hexEncodedKey.hexToBooleanArray()
-    val booleanMessage = this.plainTextToBooleanArrayAscii()
-    val remainder = booleanMessage.size % 64
-    val paddingSize = if (remainder == 0) 0 else 64 - remainder
-    val paddedMessage = BooleanArray(paddingSize) { false } + booleanMessage
-
-    val encryptedBooleanArray = paddedMessage
-        .toList()
-        .chunked(64)
-        .map { it.toBooleanArray().encryptDesBlock(booleanKey) }
-        .flatMap { it.toList() }
-        .toBooleanArray()
-
-    val result: Any = when (outputFormat) {
-        OutputFormat.PLAIN_TEXT_ASCII -> encryptedBooleanArray.toAsciiString()
-        OutputFormat.HEX -> encryptedBooleanArray.toHexString()
-        OutputFormat.BOOLEAN_ARRAY -> encryptedBooleanArray
-    }
-
-    return result as T
 }
 
 
@@ -134,12 +99,10 @@ fun BooleanArray.decryptDesBlock(key: BooleanArray): BooleanArray {
 
     }
 
-
     val m = unapplyPermutation(IP, LCurrent + RCurrent);
     return m;
 
 }
-
 
 /**
  * @return 16 elements of 48 bit keys
@@ -178,8 +141,8 @@ fun getKList(key: BooleanArray, loggerActive: Boolean = false): List<BooleanArra
             else -> 2
         }
 
-        val CNext = CList.last().rotateLeft(shiftNumber)
-        val DNext = DList.last().rotateLeft(shiftNumber)
+        val CNext = CList.last().rotateLeftCyclic(shiftNumber)
+        val DNext = DList.last().rotateLeftCyclic(shiftNumber)
 
         CList.add(CNext)
         DList.add(DNext)
@@ -190,14 +153,7 @@ fun getKList(key: BooleanArray, loggerActive: Boolean = false): List<BooleanArra
     return KList.toList();
 }
 
-internal fun BooleanArray.rotateLeft(bits: Int): BooleanArray {
-    val size = size
-    val result = BooleanArray(size)
-    for (i in 0 until size) {
-        result[i] = this[(i + bits) % size]
-    }
-    return result
-}
+
 
 /**
  * @param Rn - has 32 bits

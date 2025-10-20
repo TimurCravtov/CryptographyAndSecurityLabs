@@ -1,8 +1,6 @@
 package lab4
 
-import lab4.des.getCfromL16R16
-import lab4.util.binaryStringToBooleanArray
-import util.readUntilConditionSatisfy
+import lab4.des.core.getCfromL16R16
 import kotlin.random.Random
 
 fun main() {

@@ -1,12 +1,17 @@
 package lab3
 
+import lab3.utils.makeReplacements
+import lab3.utils.normalizeForEncryption
+
 internal fun filler(doubledLetter: Char) = if (doubledLetter == 'X') 'Y' else 'X'
 
 fun String.code(char: Char) = this.indexOf(char.uppercaseChar())
 
-fun String.encryptPlayfair(alphabet: String, key: String, rows: Int, columns: Int): String {
+fun String.encryptPlayfair(alphabet: String, key: String, rows: Int, columns: Int, replacements: Map<List<Char>, Char>? = null): String {
 
-    val preprocessedMessage = preprocessPlayfair(this)
+    val message = if (replacements == null) this else this.makeReplacements(replacements)
+
+    val preprocessedMessage = preprocessPlayfair(message)
     val square = generateSquare(alphabet, key, rows, columns)
 
     val chunks = preprocessedMessage.chunked(2).map {it.toMutableList()}
