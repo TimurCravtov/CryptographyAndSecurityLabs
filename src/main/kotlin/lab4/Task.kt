@@ -1,6 +1,7 @@
 package lab4
 
 import lab4.des.core.getCfromL16R16
+import lab4.util.toHexString
 import kotlin.random.Random
 
 fun main() {
@@ -11,7 +12,7 @@ fun main() {
 //    val L16 = readUntilConditionSatisfy("L16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
 //    val R16 = readUntilConditionSatisfy("R16: ", { it }, { it.length == 32 && it.all { c -> c == '1' || c == '0' } }).binaryStringToBooleanArray()
 
-    getCfromL16R16(L16, R16, true);
+    println(getCfromL16R16(L16, R16, true).toHexString());
 
 }
 

@@ -60,6 +60,7 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
         log.log("R$i = ${RNext.toBitString().blue()}")
 
         val LNext = RCurrent
+        log.log("L$i = R${i-1} = ${LNext.toBitString().yellow()}")
 
         LCurrent = LNext
         RCurrent = RNext
@@ -77,7 +78,9 @@ fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = fals
  */
 fun BooleanArray.decryptDesBlock(key: BooleanArray): BooleanArray {
 
-    val R16L16 = unapplyPermutation(IP_1, this) // 64 bits
+    require(key.size == 64)
+
+    val R16L16 = applyPermutation(IP, this) // 64 bits
 
     val L16 = R16L16.sliceArray(32..63)
     val R16 = R16L16.sliceArray(0..31)
@@ -99,7 +102,7 @@ fun BooleanArray.decryptDesBlock(key: BooleanArray): BooleanArray {
 
     }
 
-    val m = unapplyPermutation(IP, LCurrent + RCurrent);
+    val m = applyPermutation(IP_1, LCurrent + RCurrent);
     return m;
 
 }
