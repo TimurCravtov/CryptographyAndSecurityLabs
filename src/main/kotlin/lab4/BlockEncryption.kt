@@ -12,6 +12,6 @@ fun main() {
     println("K: $K")
     val enc = M.hexToBooleanArray().encryptDesBlock(K.hexToBooleanArray(), true)
     println("C: ${enc.toHexString()}")
+    val dec = enc.decryptDesBlock(K.hexToBooleanArray())
+    println("D: ${dec.toHexString()}")
 }
-
-

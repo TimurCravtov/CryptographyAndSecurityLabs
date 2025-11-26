@@ -10,7 +10,7 @@ import lab3.utils.makeReplacements
 fun main() {
 
     val replacements = mapOf(
-        listOf('I', 'Î') to 'I'
+        listOf('I', 'J') to 'I'
     )
 
     val alphabet = romanianAlphabet.makeReplacements(replacements).toList().distinct().joinToString("")

@@ -5,6 +5,14 @@ infix fun BooleanArray.xor(other: BooleanArray): BooleanArray {
     return BooleanArray(size) { i -> this[i] xor other[i] }
 }
 
+infix fun BooleanArray.cshiftl(arg: Int): BooleanArray {
+    return this.rotateLeftCyclic(arg);
+}
+
+infix fun BooleanArray.cshiftr(arg: Int): BooleanArray {
+    return this.rotateLeftCyclic( -arg);
+}
+
 fun BooleanArray.toHexString(): String {
     require(isNotEmpty()) { "Array cannot be empty" }
     val sb = StringBuilder()
@@ -84,6 +92,7 @@ fun BooleanArray.rotateLeftCyclic(bits: Int): BooleanArray {
     }
     return result
 }
+
 
 fun BooleanArray.toBitString(): String {
     return joinToString("") { if (it) "1" else "0" }

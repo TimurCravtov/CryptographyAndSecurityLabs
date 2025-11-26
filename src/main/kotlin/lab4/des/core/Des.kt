@@ -17,6 +17,9 @@ import util.*
  */
 fun BooleanArray.encryptDesBlock(key: BooleanArray, loggerActive: Boolean = false): BooleanArray {
 
+    require(this.size == 64)
+    require(key.size == 64)
+
     val log = Logger.instance
     log!!.seen = loggerActive
 
@@ -149,7 +152,7 @@ fun getKList(key: BooleanArray, loggerActive: Boolean = false): List<BooleanArra
 
         CList.add(CNext)
         DList.add(DNext)
-        KList.add(applyPermutation(PC_2, CNext + DNext))
+        KList.add(applyPermutation(PC_2, CNext + DNext)) // 48 bits
 
     }
 
@@ -172,6 +175,7 @@ internal fun f(Rn: BooleanArray, Kn_plus_1: BooleanArray): BooleanArray {
     log.log(E.toList().chunked(8).joinToString("\n") { it.joinToString(" ") }.purple())
 
     val R_E_permuted = applyPermutation(E, Rn) // extends R to 48 bits
+
     log.log("R with permutation: ${R_E_permuted.toBitString().cyan()}")
     log.log("Kn                : ${Kn_plus_1.toBitString().green()}")
 
