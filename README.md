@@ -19,3 +19,10 @@
 - Code: [src/main/kotlin/lab4](src/main/kotlin/lab4)
 - Report: [reports/lab4/FAF-231_CS_LAB4_Timur-Cravtov.pdf](reports/lab4/FAF-231_CS_LAB4_Timur-Cravtov.pdf)
 
+
+### Laboratory 5: Public Key cryptography
+
+- Code: [src/main/kotlin/lab4](src/main/kotlin/lab5)
+- Report: [reports/lab4/FAF-231_CS_LAB4_Timur-Cravtov.pdf](reports/lab5/FAF-231_CS_LAB5_Timur-Cravtov.pdf)
+
+
