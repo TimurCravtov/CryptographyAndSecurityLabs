@@ -19,18 +19,16 @@ fun messageToBigInt(message: String): BigInteger {
 
 fun encryptRsa(message: BigInteger, publicKey: BigInteger, n: BigInteger): BigInteger {
 
-    require(message.bitLength() <= 2048)
-
     val cipherText = message.modPow(publicKey, n)
 
     return cipherText
 
 }
-fun decryptRsa(encryptedMessage: BigInteger, privateKey: BigInteger, n: BigInteger): String {
+fun decryptRsa(encryptedMessage: BigInteger, privateKey: BigInteger, n: BigInteger): BigInteger {
 
     val message = encryptedMessage.modPow(privateKey, n)
 
-    return bigIntToAsciiString(message)
+    return message;
 }
 
 fun bigIntToAsciiString(bigInt: BigInteger): String {
@@ -39,12 +37,13 @@ fun bigIntToAsciiString(bigInt: BigInteger): String {
 
 
 
-fun keyGen(isPublicKeyDefault: Boolean = true): KeyGenData {
-    val p = randomPrime(1024, 2100)
-    var q = randomPrime(1024, 2100)
+fun keyGen(isPublicKeyDefault: Boolean = true, nMin: Int = 2048): KeyGenData {
+
+    val p = randomPrime(nMin / 2, nMin)
+    var q = randomPrime(nMin / 2, nMin)
 
     while (p == q) {
-        q = randomPrime(1024, 2100)
+        q = randomPrime(nMin / 2, nMin)
     }
 
     val n = p * q

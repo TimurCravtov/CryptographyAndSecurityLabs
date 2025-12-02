@@ -1,5 +1,6 @@
 package lab5
 
+import lab5.algorithms.bigIntToString
 import lab5.algorithms.decryptRsa
 import lab5.algorithms.encryptRsa
 import lab5.algorithms.keyGen
@@ -19,5 +20,5 @@ fun main() {
     println(ciphertext)
 
     val d = decryptRsa(ciphertext, keys.privateKey, keys.n)
-    println(d)
+    println(d.bigIntToString())
 }
