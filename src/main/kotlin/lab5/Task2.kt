@@ -15,7 +15,7 @@ fun main() {
 
     val g = 2
 
-    val d = randomInt(BigInteger.valueOf(2), BigInteger(p) -2)
+    val d = randomInt(BigInteger.valueOf(1), BigInteger(p) -2)
 
     val setupKeys = ElGamalSetupData.from(BigInteger(p), BigInteger.valueOf(g.toLong()), d)
     println("keys: $setupKeys")

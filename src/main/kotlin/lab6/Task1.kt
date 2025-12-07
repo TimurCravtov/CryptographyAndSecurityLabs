@@ -15,17 +15,21 @@ fun main() {
     val keys = keyGen(nMin = 3072)
 
     val hash = hash(messageFromLab2, "SHA3-224")
+    println("Hash: ${BigInteger(hash)}")
     val signature = encryptRsa(BigInteger(hash), keys.privateKey, keys.n)
+    println("Signature: $signature")
 
     // receiver
 
     val decryptedSignature = decryptRsa(signature, keys.publicKey, keys.n)
+    println("Decrypted Signature: $decryptedSignature")
 
     val hashReceiver = hash(messageFromLab2, "SHA3-224")
     val hashNum = BigInteger(hashReceiver)
+    println("Hash Receiver: $hashNum")
 
 
-    println(hashNum == decryptedSignature)
+    println("Signature valid: ${hashNum == decryptedSignature}")
 }
 
 fun hash(message: String, alg: String): ByteArray {

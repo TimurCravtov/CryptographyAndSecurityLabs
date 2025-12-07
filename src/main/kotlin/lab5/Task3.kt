@@ -19,16 +19,16 @@ fun main() {
     val b = randomInt(BigInteger.ONE, p - BigInteger.ONE)
 
     // alice public key
-    val A = alpha.modPow(a, p)     // α^a mod p
+    val A = alpha.modPow(a, p)     // g^a mod p
 
     // bob public key
-    val B = alpha.modPow(b, p)     // α^b mod p
+    val B = alpha.modPow(b, p)     // g^b mod p
 
     // alice computed common key
-    val kA = B.modPow(a, p)        // (α^b)^a mod p
+    val kA = B.modPow(a, p)        // (g^b)^a mod p
 
     // bob computed common key
-    val kB = A.modPow(b, p)        // (α^a)^b mod p
+    val kB = A.modPow(b, p)        // (g^a)^b mod p
 
     require(kA == kB)
     println("Common key: $kA")
@@ -36,7 +36,7 @@ fun main() {
     // use common key as key for aes
     val raw = kA.toByteArray()
     val secretBytes =
-        if (raw.size >= 32) raw.copyOfRange(raw.size - 32, raw.size)
+        if (raw.size >= 32) raw.copyOfRange(0, 32)
         else ByteArray(32 - raw.size) + raw
 
     val aesKey = SecretKeySpec(secretBytes, "AES")

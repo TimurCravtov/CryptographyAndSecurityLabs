@@ -18,24 +18,31 @@ fun main() {
 
     val hash = hash(messageFromLab2, "SHA-512")
     val hashNum = BigInteger(hash)
+    println("Hash: $hashNum")
 
-    val k = randomInt(BigInteger.valueOf(1), p - 1);
+    var k: BigInteger
+    do {
+        k = randomInt(BigInteger.valueOf(1), p - 1)
+    } while (k.gcd(p - 1) != BigInteger.ONE)
+
     val r = g.modPow(k, p)
 
     val s = ((hashNum - privateKeyElGamal * r) * k.modInverse(p - 1)).mod(p - 1)
 
     val signature = ElGamalSignature(r, s);
+    println("Signature: $signature")
 
     // receiver
 
     val v1 = (publicKeys.beta.modPow(signature.r, p) * r.modPow(signature.s, p)).mod(p)
     val v2 = g.modPow(hashNum, p)
 
-    println(v1 == v2)
+    println("v1: $v1")
+    println("v2: $v2")
+
+    println("Signature valid: ${v1 == v2}")
 
 
 }
 
 data class ElGamalSignature(val r: BigInteger, val s: BigInteger)
-
-val p = 1;

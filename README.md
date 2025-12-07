@@ -22,7 +22,11 @@
 
 ### Laboratory 5: Public Key cryptography
 
-- Code: [src/main/kotlin/lab4](src/main/kotlin/lab5)
-- Report: [reports/lab4/FAF-231_CS_LAB4_Timur-Cravtov.pdf](reports/lab5/FAF-231_CS_LAB5_Timur-Cravtov.pdf)
+- Code: [src/main/kotlin/lab5](src/main/kotlin/lab5)
+- Report: [reports/lab4/FAF-231_CS_LAB5_Timur-Cravtov.pdf](reports/lab5/FAF-231_CS_LAB5_Timur-Cravtov.pdf)
 
+### Laboratory 6: Hashing algorithms
+
+- Code: [src/main/kotlin/lab6](src/main/kotlin/lab6)
+- Report: [reports/lab4/FAF-231_CS_LAB6_Timur-Cravtov.pdf](reports/lab5/FAF-231_CS_LAB6_Timur-Cravtov.pdf)
 
