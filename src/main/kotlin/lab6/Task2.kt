@@ -20,10 +20,12 @@ fun main() {
     val hashNum = BigInteger(hash)
     println("Hash: $hashNum")
 
-    var k: BigInteger
-    do {
-        k = randomInt(BigInteger.valueOf(1), p - 1)
-    } while (k.gcd(p - 1) != BigInteger.ONE)
+
+    val k = generateSequence {
+        randomInt(BigInteger.ONE, p - 1)
+    }.first {
+        it.gcd(p - 1) == BigInteger.ONE
+    }
 
     val r = g.modPow(k, p)
 
